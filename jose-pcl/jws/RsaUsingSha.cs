@@ -20,9 +20,9 @@ namespace JosePCL.Jws
             var publicKey = Ensure.Type<ICryptographicKey>(key, "RsaUsingSha expects key to be of type 'ICryptographicKey'");
 
             //reattach key to alg provider
-            byte[] keyBlob = publicKey.Export(CryptographicPrivateKeyBlobType.BCryptPrivateKey);
+            byte[] keyBlob = publicKey.Export(CryptographicPrivateKeyBlobType.Pkcs1RsaPrivateKey);
 
-            ICryptographicKey cKey = AlgProvider.ImportKeyPair(keyBlob, CryptographicPrivateKeyBlobType.BCryptPrivateKey);
+            ICryptographicKey cKey = AlgProvider.ImportKeyPair(keyBlob, CryptographicPrivateKeyBlobType.Pkcs1RsaPrivateKey);
 
             return WinRTCrypto.CryptographicEngine.Sign(cKey, securedInput);
         }
@@ -32,9 +32,9 @@ namespace JosePCL.Jws
             var publicKey = Ensure.Type<ICryptographicKey>(key, "RsaUsingSha expects key to be of type 'ICryptographicKey'");
             
             //reattach key to alg provider
-            byte[] keyBlob = publicKey.ExportPublicKey(CryptographicPublicKeyBlobType.BCryptPublicKey);
+            byte[] keyBlob = publicKey.ExportPublicKey(CryptographicPublicKeyBlobType.Pkcs1RsaPublicKey);
 
-            ICryptographicKey cKey = AlgProvider.ImportPublicKey(keyBlob, CryptographicPublicKeyBlobType.BCryptPublicKey);
+            ICryptographicKey cKey = AlgProvider.ImportPublicKey(keyBlob, CryptographicPublicKeyBlobType.Pkcs1RsaPublicKey);
 
             return WinRTCrypto.CryptographicEngine.VerifySignature(cKey, securedInput, signature);
         }
