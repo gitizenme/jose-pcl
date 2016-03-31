@@ -1,11 +1,14 @@
 ﻿using System;
 using JosePCL.Keys.pem;
+using JosePCL.Util;
 using PCLCrypto;
 
 namespace JosePCL.Keys.Rsa
 {
     public sealed class PublicKey
     {
+        public static readonly byte[] BCRYPT_RSAPUBLIC_MAGIC = BitConverter.GetBytes(0x31415352);
+
         public static ICryptographicKey Load(string pubKeyContent)
         {
             CryptographicPublicKeyBlobType blobType;
@@ -35,5 +38,21 @@ namespace JosePCL.Keys.Rsa
             return WinRTCrypto.AsymmetricKeyAlgorithmProvider.OpenAlgorithm(AsymmetricAlgorithm.RsaPkcs1)
                                                              .ImportPublicKey(block.Decoded, blobType);
         }
+
+        public static ICryptographicKey New(byte[] exponent, byte[] modulus)
+        {
+            byte[] magic = BCRYPT_RSAPUBLIC_MAGIC;
+            byte[] bitLength = BitConverter.GetBytes(modulus.Length * 8);
+            byte[] expLength = BitConverter.GetBytes(exponent.Length);
+            byte[] modLength = BitConverter.GetBytes(modulus.Length);
+            byte[] prime1Length = BitConverter.GetBytes(0x00000000);
+            byte[] prime2Length = BitConverter.GetBytes(0x00000000);
+
+            byte[] blob = Arrays.Concat(magic, bitLength, expLength, modLength, prime1Length, prime2Length, exponent, modulus);
+
+            return WinRTCrypto.AsymmetricKeyAlgorithmProvider.OpenAlgorithm(AsymmetricAlgorithm.RsaPkcs1)
+                                                             .ImportPublicKey(blob, CryptographicPublicKeyBlobType.BCryptPublicKey);
+        }
+
     }
 }
