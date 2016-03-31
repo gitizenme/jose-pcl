@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>jose-pcl</id>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <title>Jose PCL</title>
     <authors>Dmitry Vsekhvalnov</authors>
     <owners>Dmitry Vsekhvalnov</owners>
@@ -18,7 +18,9 @@ Supported algorithms
 
 Signing:
 
-- None, plaintext unprotected tokens
+- HMAC signatures with HS256, HS384 and HS512.
+- RSASSA-PKCS1-V1_5 signatures with RS256, RS384 and RS512.
+- NONE (unprotected) plain text algorithm without integrity protection
 
     </description>
     <copyright>Copyright dvsekhvalnov 2016</copyright>
