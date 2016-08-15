@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>jose-pcl</id>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <title>Jose PCL</title>
     <authors>Dmitry Vsekhvalnov</authors>
     <owners>Dmitry Vsekhvalnov</owners>
@@ -29,7 +29,7 @@ Signing:
 
     <dependencies>
         <dependency id="Newtonsoft.Json" version="8.0.2" />
-        <dependency id="PCLCrypto" version="1.0.86" />
+        <dependency id="PCLCrypto" version="2.0.147" />
     </dependencies>
   </metadata>
 </package>
