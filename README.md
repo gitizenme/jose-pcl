@@ -14,12 +14,19 @@ Attempt to re-implement portion of [jose-rt](https://github.com/dvsekhvalnov/jos
 ##### Notes:
 \* Actual supported algorithms depends on target platform. See [PCLCrypto compatibility list](https://github.com/AArnott/PCLCrypto/wiki/Algorithms-X-platforms-support).
 
+## Which version?
+* v0.0.3, depends on [PCLCrypto v1.0.86](https://github.com/AArnott/PCLCrypto) - if you targeting Win8.x Store, this is what you should use as of now.
+
+* v0.0.4 and above depends on [PCLCrypto v2.0.147](https://github.com/AArnott/PCLCrypto) - if you app targeting Win8.x Store - it most likely will be rejected due to https://github.com/AArnott/PCLCrypto/issues/97. See https://github.com/dvsekhvalnov/jose-pcl/issues/4 for more discussions.
+
 ## Installation
-### NuGet 
-not yet.
+### NuGet
+https://www.nuget.org/packages/jose-pcl
+
+`Install-Package jose-pcl`
 
 ### Manual
-Grab source and compile yourself or download [jose-pcl.0.0.1.nupkg](https://github.com/dvsekhvalnov/jose-pcl/blob/master/jose-pcl.0.0.1.nupkg) from source tree
+Grab source and compile yourself.
 
 ## Usage
 ### Creating Plaintext (unprotected) Tokens
@@ -46,7 +53,7 @@ string token = JosePCL.Jwt.Encode(payload, JwsAlgorithm.HS256, secretKey);
 RS256, RS384, RS512 signatures require `PCLCrypto.ICryptographicKey` private key of corresponding length. `JosePCL` provides convenient helpers to load RSA keys from commonly
 used PEM encoded formats. See [Obtaining keys](#obtaining-keys) section for details.
 
-```C#	
+```C#
 string payload = @"{""hello"" : ""world""}";
 
 string privateKey=
@@ -67,7 +74,7 @@ Vq/Q3fFKCWamZ1olx08zo4x4y2kYKO275GSZabhiVoulVhUtRgi9BcPfW9kakqps
 wEe4//EeSbl38Bk=
 -----END PRIVATE KEY-----"
 
-	
+
 string token = JosePCL.Jwt.Encode(payload, JwsAlgorithm.RS512, JosePCL.Keys.Rsa.PrivateKey.Load(privateKey));
 ```
 
@@ -90,7 +97,7 @@ used PEM encoded formats. See [Obtaining keys](#obtaining-keys) section for deta
 ```C#
 string token = "eyJhbGciOiJSUzM4NCIsImN0eSI6InRleHRcL3BsYWluIn0.eyJoZWxsbyI6ICJ3b3JsZCJ9.cOPca7YEOxnXVdIi7cJqfgRMmDFPCrZG1M7WCJ23U57rAWvCTaQgEFdLjs7aeRAPY5Su_MVWV7YixcawKKYOGVG9eMmjdGiKHVoRcfjwVywGIb-nuD1IBzGesrQe7mFQrcWKtYD9FurjCY1WuI2FzGPp5YhW5Zf4TwmBvOKz6j2D1vOFfGsogzAyH4lqaMpkHpUAXddQxzu8rmFhZ54Rg4T-jMGVlsdrlAAlGA-fdRZ-V3F2PJjHQYUcyS6n1ULcy6ljEOgT5fY-_8DDLLpI8jAIdIhcHUAynuwvvnDr9bJ4xIy4olFRqcUQIHbcb5-WDeWul_cSGzTJdxDZsnDuvg";
 
-var publicKey= 
+var publicKey=
 @"-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqFZv0pea/jn5Mo4qEUmS
 tuhlulso8n1inXbEotd/zTrQp9K0RK0hf7t0K4BjKVhaiqIam4tVVQvkmYeBeYr1
@@ -99,7 +106,7 @@ DPQJZpqNy6JjliDVXxW8nWJDetxGBlqmTj1E1fr2RCsZLreDOPSDIedG1upz9Rra
 ShsIDzeefOcKibcAaKeeVI3rkAU8/mOauLSXv37hlk0h6sStJb3qZQXyOUkVkjXI
 khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
 2QIDAQAB
------END PUBLIC KEY-----"; 
+-----END PUBLIC KEY-----";
 
 string json = Jwt.Decode(token, JosePCL.Keys.Rsa.PublicKey.Load(publicKey));
 ```
@@ -176,7 +183,3 @@ Can be converted from PKCS#1 private key via `openssl pkcs8 -topk8 -inform PEM -
 	Vq/Q3fFKCWamZ1olx08zo4x4y2kYKO275GSZabhiVoulVhUtRgi9BcPfW9kakqps
 	wEe4//EeSbl38Bk=
 	-----END PRIVATE KEY-----
-
-
-
-
