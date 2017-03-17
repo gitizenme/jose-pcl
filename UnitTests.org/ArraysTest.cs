@@ -1,5 +1,5 @@
 ﻿using JosePCL.Util;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace UnitTests
 {

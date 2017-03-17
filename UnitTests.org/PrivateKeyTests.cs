@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using JosePCL.Keys.Rsa;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using PCLCrypto;
 
 namespace UnitTests

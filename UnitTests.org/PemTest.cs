@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using JosePCL.Keys.pem;
 using JosePCL.Util;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace UnitTests
 {
